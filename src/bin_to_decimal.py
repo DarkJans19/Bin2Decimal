@@ -1,3 +1,23 @@
+from fastapi import FastAPI, Form, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+import uvicorn
+
+app = FastAPI()
+template = Jinja2Templates(directory="templates")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+@app.get("/")
+def index(req: Request):
+    return template.TemplateResponse(
+        request=req,
+        name="index.html",
+        context={}
+    )
+
+
 def convert_binary_to_decimal(binary):
     if len(binary) > 8:
         raise ValueError("You can only convert 8 binary length")
@@ -15,13 +35,28 @@ def convert_binary_to_decimal(binary):
     return result
 
 
-if __name__ == "__main__":
-    user_input = input("Introduce the binary number you want convert: ")
+@app.post("/")
+def process_form(req: Request, binary_number: str = Form()):
+    result = None
+    error_msg = None
     try:
-        decimal_result = convert_binary_to_decimal(user_input)
-        print(f"Result: {decimal_result}")
+        result = convert_binary_to_decimal(binary_number)
     except ValueError as e:
-        print(f"Error: {e}")
+        error_msg = str(e)
+
+    return template.TemplateResponse(
+        request=req,
+        name="index.html",
+        context={
+            "resultado_decimal": result,
+            "mensaje_error": error_msg,
+            "numero previo": binary_number
+        }
+    )
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app")
 
 
 

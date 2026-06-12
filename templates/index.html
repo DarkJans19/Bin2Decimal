@@ -1,27 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
-        <title>
-            Conversor de numero binarios a numeros decimales
-        </title>
-        <link rel="stylesheet" href="styles.css">
+        <meta charset="UTF-8">
+        <title>Conversor de numero binario a decimal</title>
+        <link rel="stylesheet" href="/static/style.css">
     </head>
 
     <body>
-        <div class="container">
-            <h1>
-                Conversor de numero binarios a numeros decimales
-            </h1>
-            <form>
-                <label for="binary_number">Ingresa el numero binario que deseas convertir</label>
-                <input type="text" id="binary_number" name="binary_number"><br>
-
-                <div class="button-container">
-                    <button type="button" class="button-convert">Convertir</button>
+        <div class="contenedor">
+            <h1>Conversor de numeros binarios<br>a numeros decimales</h1>
+            
+            <form method="POST">
+                
+                <label for="binary_number">Ingresa el numero binario a convertir</label>
+                <input 
+                    type="text" 
+                    id="binary_number" 
+                    name="binary_number" 
+                    value="{{ numero_previo if numero_previo else '' }}"
+                >
+                
+                {% if error_detectado %}
+                    <p style="color: red; font-weight: bold; text-align: left; margin-top: -15px;">
+                        {{ error_detectado }}
+                    </p>
+                {% endif %}
+                
+                <div class="boton-container">
+                    <button type="submit" class="btn-convertir">Convertir</button>
                 </div>
 
-                <label for="decimal-number">El numero en decimal es:</label>
-                <input type="text" id="decimal-number" name="decimal_number" readonly>
+                <label for="decimal_result">El numero en decimal es:</label>
+                <input 
+                    type="text" 
+                    id="decimal_result" 
+                    readonly
+                    value="{% if resultado_decimal is not none %}{{ resultado_decimal }}{% endif %}"
+                >
             </form>
         </div>
     </body>
