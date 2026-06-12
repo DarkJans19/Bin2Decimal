@@ -49,8 +49,8 @@ def process_form(req: Request, binary_number: str = Form()):
         name="index.html",
         context={
             "resultado_decimal": result,
-            "mensaje_error": error_msg,
-            "numero previo": binary_number
+            "error_detectado": error_msg,
+            "numero_previo": binary_number
         }
     )
 
