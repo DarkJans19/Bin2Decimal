@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+/* Contenedor principal para alinear los elementos */
+.contenedor {
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+}
+
+h1{
+    color: #049128;
+    font-size: 32px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* Estilos para las etiquetas de texto */
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Estilos compartidos para ambos cuadros de texto */
+input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #e0e0e0;
+    border: none;
+    font-size: 16px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.button-container {
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+.button-convert {
+    background-color: #008f11;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    padding: 10px 25px;
+    cursor: pointer;
+}
+
+.button-convert:hover {
+    background-color: #00660c; /* Verde más oscuro al pasar el mouse */
+}
