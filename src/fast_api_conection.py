@@ -20,11 +20,14 @@ def index(req: Request):
 
 
 @app.post("/")
-def process_form(req: Request, binary_number: str = Form()):
+def process_form(req: Request, number: str = Form(), conversion_type: str = Form()):
     result = None
     error_msg = None
     try:
-        result = binary_conversions.convert_decimal_to_binary(binary_number)
+        if conversion_type == "bin2dec":
+            result = binary_conversions.convert_binary_to_decimal(number)
+        else:
+            result = binary_conversions.convert_decimal_to_binary(number)
     except ValueError as e:
         error_msg = str(e)
 
@@ -32,9 +35,10 @@ def process_form(req: Request, binary_number: str = Form()):
         request=req,
         name="index.html",
         context={
-            "resultado_decimal": result,
+            "resultado": result,
             "error_detectado": error_msg,
-            "numero_previo": binary_number
+            "numero_previo": number,
+            "tipo_conversion": conversion_type
         }
     )
 

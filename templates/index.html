@@ -2,21 +2,37 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>Conversor de numero binario a decimal</title>
+        <title>Conversor de numeros binarios</title>
         <link rel="stylesheet" href="/static/style.css">
     </head>
 
     <body>
         <div class="contenedor">
-            <h1>Conversor de numeros binarios<br>a numeros decimales</h1>
+            <h1>Conversor de binarios/decimales</h1>
             
             <form method="POST">
                 
-                <label for="binary_number">Ingresa el numero binario a convertir</label>
+                <label for="conversion_type">¿Qué deseas hacer?</label>
+                <select name="conversion_type" id="conversion_type" class="option">
+                    <option value="bin2dec" {% if tipo_conversion == 'bin2dec' or not tipo_conversion %}selected{% endif %}>
+                        Convertir binario a decimal
+                    </option>
+                    <option value="dec2bin" {% if tipo_conversion == 'dec2bin' %}selected{% endif %}>
+                        Convertir decimal a binario
+                    </option>
+                </select>
+
+                <label for="number" id="label_input">
+                    {% if tipo_conversion == 'dec2bin' %}
+                        Ingresa el numero decimal a convertir:
+                    {% else %}
+                        Ingresa el numero binario a convertir:
+                    {% endif %}
+                </label>
                 <input 
                     type="text" 
-                    id="binary_number" 
-                    name="binary_number" 
+                    id="number" 
+                    name="number" 
                     value="{{ numero_previo if numero_previo else '' }}"
                 >
                 
@@ -30,14 +46,39 @@
                     <button type="submit" class="btn-convertir">Convertir</button>
                 </div>
 
-                <label for="decimal_result">El numero en decimal es:</label>
+                <label for="result" id="label_output">
+                    {% if tipo_conversion == 'dec2bin' %}
+                        El numero en binario es:
+                    {% else %}
+                        El numero en decimal es:
+                    {% endif %}
+                </label>
                 <input 
                     type="text" 
-                    id="decimal_result" 
+                    id="result" 
                     readonly
-                    value="{% if resultado_decimal is not none %}{{ resultado_decimal }}{% endif %}"
+                    value="{% if resultado is not none %}{{ resultado }}{% endif %}"
                 >
             </form>
         </div>
+
+        <script>
+            // 1. Capturamos los elementos de la pantalla
+            const selector = document.getElementById('conversion_type');
+            const labelInput = document.getElementById('label_input');
+            const labelOutput = document.getElementById('label_output');
+
+            // 2. Le decimos al selector que "escuche" cada vez que cambie su valor
+            selector.addEventListener('change', function() {
+                // 3. Evaluamos qué eligió el usuario y cambiamos el texto en tiempo real
+                if (this.value === 'dec2bin') {
+                    labelInput.textContent = 'Ingresa el numero decimal a convertir:';
+                    labelOutput.textContent = 'El numero en binario es:';
+                } else {
+                    labelInput.textContent = 'Ingresa el numero binario a convertir:';
+                    labelOutput.textContent = 'El numero en decimal es:';
+                }
+            });
+        </script>
     </body>
 </html>
