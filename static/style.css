@@ -76,5 +76,5 @@ select option {
 }
 
 .button-convert:hover {
-    background-color: #00660c; /* Verde más oscuro al pasar el mouse */
+    background-color: #00660c; 
 }
