@@ -20,10 +20,12 @@ def index(req: Request):
 
 
 @app.post("/")
-def process_form(req: Request, number: str = Form(), conversion_type: str = Form()):
+def process_form(req: Request, number: str = Form(default=""), conversion_type: str = Form()):
     result = None
     error_msg = None
     try:
+        if number.strip() == "":
+            raise ValueError("You must put a number")
         if conversion_type == "bin2dec":
             result = binary_conversions.convert_binary_to_decimal(number)
         else:

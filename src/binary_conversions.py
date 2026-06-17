@@ -14,7 +14,10 @@ def convert_binary_to_decimal(binary):
 def convert_decimal_to_binary(decimal):
     if decimal == "0":
         return "0"
-    decimal = int(decimal)
+    try:
+        decimal = int(decimal)
+    except:
+        raise ValueError("The value entered must be a number") 
     binary = ""
     while decimal > 0:
         bin = decimal % 2
