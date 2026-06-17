@@ -2,7 +2,7 @@
 import unittest
 
 # Importamos la función que queremos probar
-from src.bin_to_decimal import convert_binary_to_decimal
+from src.binary_conversions import convert_binary_to_decimal
 
 
 class TestBin2Dec(unittest.TestCase):

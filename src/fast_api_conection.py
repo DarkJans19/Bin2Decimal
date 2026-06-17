@@ -1,3 +1,4 @@
+import binary_conversions
 from fastapi import FastAPI, Form, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -18,29 +19,12 @@ def index(req: Request):
     )
 
 
-def convert_binary_to_decimal(binary):
-    if len(binary) > 8:
-        raise ValueError("You can only convert 8 binary length")
-    
-    for i in range(len(binary)):
-        if binary[i] != '1' and binary[i] != '0':
-            raise ValueError("The binary number can only have 1 or 0")
-
-    result = 0
-
-    for bit in binary:
-        print(result)
-        result = result * 2 + int(bit)
-
-    return result
-
-
 @app.post("/")
 def process_form(req: Request, binary_number: str = Form()):
     result = None
     error_msg = None
     try:
-        result = convert_binary_to_decimal(binary_number)
+        result = binary_conversions.convert_decimal_to_binary(binary_number)
     except ValueError as e:
         error_msg = str(e)
 
